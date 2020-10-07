@@ -249,6 +249,33 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Alien"",
+            ""id"": ""9473d1c7-d934-4b5c-b982-6f841480a816"",
+            ""actions"": [
+                {
+                    ""name"": ""randomSound"",
+                    ""type"": ""Button"",
+                    ""id"": ""abf5888d-ed10-45a9-b28b-89ee191e57dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5478fab6-bb2d-4a64-97c3-7bd873b4f542"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""randomSound"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -267,6 +294,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Sounds_pen = m_Sounds.FindAction("pen", throwIfNotFound: true);
         m_Sounds_sleutels = m_Sounds.FindAction("sleutels", throwIfNotFound: true);
         m_Sounds_zandKoker = m_Sounds.FindAction("zandKoker", throwIfNotFound: true);
+        // Alien
+        m_Alien = asset.FindActionMap("Alien", throwIfNotFound: true);
+        m_Alien_randomSound = m_Alien.FindAction("randomSound", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -433,6 +463,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public SoundsActions @Sounds => new SoundsActions(this);
+
+    // Alien
+    private readonly InputActionMap m_Alien;
+    private IAlienActions m_AlienActionsCallbackInterface;
+    private readonly InputAction m_Alien_randomSound;
+    public struct AlienActions
+    {
+        private @PlayerControls m_Wrapper;
+        public AlienActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @randomSound => m_Wrapper.m_Alien_randomSound;
+        public InputActionMap Get() { return m_Wrapper.m_Alien; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(AlienActions set) { return set.Get(); }
+        public void SetCallbacks(IAlienActions instance)
+        {
+            if (m_Wrapper.m_AlienActionsCallbackInterface != null)
+            {
+                @randomSound.started -= m_Wrapper.m_AlienActionsCallbackInterface.OnRandomSound;
+                @randomSound.performed -= m_Wrapper.m_AlienActionsCallbackInterface.OnRandomSound;
+                @randomSound.canceled -= m_Wrapper.m_AlienActionsCallbackInterface.OnRandomSound;
+            }
+            m_Wrapper.m_AlienActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @randomSound.started += instance.OnRandomSound;
+                @randomSound.performed += instance.OnRandomSound;
+                @randomSound.canceled += instance.OnRandomSound;
+            }
+        }
+    }
+    public AlienActions @Alien => new AlienActions(this);
     public interface ISoundsActions
     {
         void OnKralenKetting(InputAction.CallbackContext context);
@@ -447,5 +510,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnPen(InputAction.CallbackContext context);
         void OnSleutels(InputAction.CallbackContext context);
         void OnZandKoker(InputAction.CallbackContext context);
+    }
+    public interface IAlienActions
+    {
+        void OnRandomSound(InputAction.CallbackContext context);
     }
 }

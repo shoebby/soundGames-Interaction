@@ -236,6 +236,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Alien",
+            "id": "9473d1c7-d934-4b5c-b982-6f841480a816",
+            "actions": [
+                {
+                    "name": "randomSound",
+                    "type": "Button",
+                    "id": "abf5888d-ed10-45a9-b28b-89ee191e57dd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5478fab6-bb2d-4a64-97c3-7bd873b4f542",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "randomSound",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -1,17 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class playerInput : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public AudioClip noise;
-
     private PlayerControls playerControls;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-
         playerControls = new PlayerControls();
     }
 
