@@ -1,0 +1,242 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Sounds",
+            "id": "2e354374-f287-476b-999e-7f531832063c",
+            "actions": [
+                {
+                    "name": "kralenKetting",
+                    "type": "Button",
+                    "id": "93314822-adce-46fa-9d96-2561e63f94a8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "chipsZak",
+                    "type": "Button",
+                    "id": "de4ae71e-5c0d-404b-b1eb-e02b017f9f38",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "eiSnijder",
+                    "type": "Button",
+                    "id": "35daa635-3c13-4fe7-8319-9d886da84547",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ijsSchep",
+                    "type": "Button",
+                    "id": "ce20d07f-b15e-46bc-9fe8-ba54d72ae625",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "klittenBand",
+                    "type": "Button",
+                    "id": "559ae414-5435-4d1d-a547-5e5a43760565",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "legoDoos",
+                    "type": "Button",
+                    "id": "a2604200-62ba-428b-ae26-9ab298337f40",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "liniaal",
+                    "type": "Button",
+                    "id": "1606efee-f90e-4763-a04b-38df880988d3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "muis",
+                    "type": "Button",
+                    "id": "4b4d63c5-a880-4aca-973f-dc3539c0c32a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ocarina",
+                    "type": "Button",
+                    "id": "d8c37138-c95a-4447-b843-c4cb042eb411",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "pen",
+                    "type": "Button",
+                    "id": "7c58aa8c-e309-4525-a2cf-11887781787c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "sleutels",
+                    "type": "Button",
+                    "id": "62bd100c-78e2-4e39-a0ec-b029b055407b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "zandKoker",
+                    "type": "Button",
+                    "id": "5fa28f69-b5d0-430c-bcf1-af6b6f7b205f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e97877e7-659a-4822-81b4-80709958488e",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "kralenKetting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cda9effb-87df-4ac7-b6c4-813254ab6476",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "chipsZak",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e48140a3-a8d7-4fc4-9430-3fd4a840a6b0",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "eiSnijder",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73c74ae3-fa3f-467a-a03a-d9344857bda0",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ijsSchep",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e1b695ad-106b-44c1-8fc2-da801a0678a2",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "klittenBand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "39025563-fb8c-4653-8148-36e7f4867af6",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "legoDoos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6695947-b80a-44c2-9798-4c726b2ed105",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "liniaal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4bff0fba-53d8-4073-a972-3e60d43e00aa",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "muis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e0201bf7-617b-4437-b758-e69a60c281be",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ocarina",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e91442f9-8ac7-48d5-8b97-5b7d1f89a7fb",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "pen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f3baa5e-252e-4f65-aaf2-4db48974e380",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "sleutels",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d1f54f2-26ef-45b3-97f8-3fe98372f9b1",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "zandKoker",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
