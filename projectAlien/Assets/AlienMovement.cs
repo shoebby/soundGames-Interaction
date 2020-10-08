@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class AlienMovement : MonoBehaviour
 {
     public GameObject player;
+    private PlayerControls playerControls;
 
     public int maxEmotion;
     private int currentEmotion;
@@ -18,8 +19,13 @@ public class AlienMovement : MonoBehaviour
     private enum AlienBehaviour { Idle, Approaching, Fleeing, Hiding };
     private AlienBehaviour currentState;
     private Vector3 dist;
-    private float hideTimer;
-    private float idleTimer;
+    private float hideTimer = 0;
+    private float idleTimer = 0;
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,51 +33,79 @@ public class AlienMovement : MonoBehaviour
         Debug.Log("Start playing");
         currentEmotion = maxEmotion;
         currentState = AlienBehaviour.Idle;
-        hideTimer = 0;
-        idleTimer = 0;
+
+        playerControls.Sounds.kralenKetting.performed += _ => changeBehaviourTo(AlienBehaviour.Approaching);
+
+        playerControls.Sounds.klittenBand.performed += _ => changeBehaviourTo(AlienBehaviour.Approaching);
+
+        playerControls.Sounds.legoDoos.performed += _ => changeBehaviourTo(AlienBehaviour.Approaching);
+
+        playerControls.Sounds.liniaal.performed += _ => changeBehaviourTo(AlienBehaviour.Approaching);
+
+        playerControls.Sounds.chipsZak.performed += _ => changeBehaviourTo(AlienBehaviour.Fleeing);
+
+        playerControls.Sounds.ocarina.performed += _ => changeBehaviourTo(AlienBehaviour.Fleeing);
+
+        playerControls.Sounds.ijsSchep.performed += _ => changeBehaviourTo(AlienBehaviour.Fleeing);
+
+        playerControls.Sounds.muis.performed += _ => changeBehaviourTo(AlienBehaviour.Hiding);
+
+        playerControls.Sounds.eiSnijder.performed += _ => changeBehaviourTo(AlienBehaviour.Hiding);
+
+        playerControls.Sounds.pen.performed += _ => changeBehaviourTo(AlienBehaviour.Hiding);
+
+        playerControls.Sounds.sleutels.performed += _ => changeBehaviourTo(AlienBehaviour.Hiding);
+
+        playerControls.Sounds.zandKoker.performed += _ => changeBehaviourTo(AlienBehaviour.Hiding);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (currentEmotion <= 0)
+        {
+            // you are a winner! :D
+        }
+        else if (currentEmotion > maxEmotion)
+            currentEmotion = maxEmotion;
+
         dist = this.transform.position - player.transform.position;
         hideTimer = currentState == AlienBehaviour.Hiding ? hideTimer : 0;
 
         // Conditions to trigger certain behaviour
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            currentEmotion -= 1;
-            changeBehaviourTo(AlienBehaviour.Approaching);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            changeBehaviourTo(AlienBehaviour.Fleeing);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    currentEmotion -= 1;
+        //    changeBehaviourTo(AlienBehaviour.Approaching);
+        //}
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    changeBehaviourTo(AlienBehaviour.Fleeing);
+        //}
 
-        Debug.Log("Switch (" + currentState + ")");
         // Movement depends on the state of the alien
         switch (currentState)
         {
             case AlienBehaviour.Approaching:
-                approaching();
+                updateApproaching();
                 break;
             case AlienBehaviour.Fleeing:
-                fleeing();
+                updateFleeing();
                 break;
             case AlienBehaviour.Hiding:
-                hiding();
+                updateHiding();
                 break;
             case AlienBehaviour.Idle:
             default:
-                movingIdle();
+                updateIdle();
                 break;
         }
-
     }
 
-    void approaching()
+    void updateApproaching()
     {
-        Debug.Log("Approaching");
+        //Debug.Log("Approaching");
+        currentEmotion--;
         // We need the alien to move towards the player
         if ((dist + dist.normalized).magnitude > dist.magnitude)
             dist = -dist;
@@ -90,25 +124,24 @@ public class AlienMovement : MonoBehaviour
     }
 
 
-    void fleeing()
+    void updateFleeing()
     {
-        Debug.Log("Fleeing");
-        currentEmotion = maxEmotion;
+        //Debug.Log("Fleeing");
+        currentEmotion++;
         // We need the alien to move away from the player
         if ((dist + dist.normalized).magnitude < dist.magnitude)
             dist = -dist;
 
-        if (dist.magnitude < maxEmotion)
+        if (dist.magnitude < currentEmotion)
             move(runSpeed);
         else
-            changeBehaviourTo(AlienBehaviour.Hiding);
+            changeBehaviourTo(AlienBehaviour.Idle);
     }
 
-    void hiding()
+    void updateHiding()
     {
-        Debug.Log("Hiding");
+        //Debug.Log("Hiding");
         hideTimer += Time.deltaTime;
-
         if (hideTimer >= hesitation)
             changeBehaviourTo(AlienBehaviour.Idle);
     }
@@ -117,15 +150,20 @@ public class AlienMovement : MonoBehaviour
         this.transform.position += dist.normalized * Time.deltaTime * speed;
     }
 
-    void movingIdle()
+    void updateIdle()
     {
-        Debug.Log("Moving idle");
         idleTimer += Time.deltaTime * walkSpeed * 0.1f;
-        Debug.Log("idleTimer is now " + idleTimer);
-
         Vector3 offset = new Vector3(Mathf.Sin(idleTimer), 0, Mathf.Cos(idleTimer)) * dist.magnitude;
-        Debug.Log("Offset: " + offset);
         this.transform.position = player.transform.position + offset;
     }
 
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
 }
