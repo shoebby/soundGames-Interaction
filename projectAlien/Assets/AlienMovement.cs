@@ -76,11 +76,11 @@ public class AlienMovement : MonoBehaviour
         audioTimer += Time.deltaTime;
         if (audioTimer > 5f)
         {
-            int alienClipNumber = Random.Range(1, 18);
-
-            FindObjectOfType<alienAudioManager>().AlienPlay("alienVoiceOver" + alienClipNumber);
-
             audioTimer = 0f;
+
+            playAlienVO("alienVoiceOver");
+
+           
         }
 
         // Conditions to trigger certain behaviour
@@ -116,7 +116,7 @@ public class AlienMovement : MonoBehaviour
     void updateApproaching()
     {
         //Debug.Log("Approaching");
-        currentEmotion--;
+
         // We need the alien to move towards the player
         if ((dist + dist.normalized).magnitude > dist.magnitude)
             dist = -dist;
@@ -132,29 +132,31 @@ public class AlienMovement : MonoBehaviour
     {
         Debug.Log("Changing behaviour to " + state);
 
+        currentState = state;
+        audioTimer = 0;
+
         switch (state)
         {
             case AlienBehaviour.Approaching:
                 currentEmotion--;
-                playAlienVO("alienVoiceOVer", 1.4f);
+                playAlienVO("alienVoiceOver");
                 break;
             case AlienBehaviour.Fleeing:
                 currentEmotion++;
-                playAlienVO("alienVoiceOVer", 0.3f);
+                playAlienVO("alienVoiceOver");
                 break;
             default:
                 break;
         }
 
-        currentState = state;
-        audioTimer = 0;
+        
     }
 
 
     void updateFleeing()
     {
         //Debug.Log("Fleeing");
-        currentEmotion++;
+
         // We need the alien to move away from the player
         if ((dist + dist.normalized).magnitude < dist.magnitude)
             dist = -dist;
@@ -184,13 +186,12 @@ public class AlienMovement : MonoBehaviour
         this.transform.position = player.transform.position + offset;
     }
 
-    void playAlienVO(string clipname, float pitch)
+    void playAlienVO(string clipname)
     {
         Debug.Log("alien screeeeech");
 
         int alienClipNumber = Random.Range(1, 18);
 
-        FindObjectOfType<alienAudioManager>().clipPitch = pitch;
         FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber);
     }
 
