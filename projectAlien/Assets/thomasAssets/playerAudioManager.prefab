@@ -1,0 +1,262 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3187060679427561454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3187060679427561455}
+  - component: {fileID: 3187060679427561424}
+  m_Layer: 0
+  m_Name: playerAudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3187060679427561455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187060679427561454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3187060679427561424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187060679427561454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8b84270554e584bb80b1a4e0c0d238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - clipName: kralenketting1
+    clip: {fileID: 8300000, guid: 26254bdd8326b4942b6816d5e2246589, type: 3}
+    source: {fileID: 0}
+  - clipName: kralenketting2
+    clip: {fileID: 8300000, guid: ecc5b2cd82bef29409bbaf6c495d60bc, type: 3}
+    source: {fileID: 0}
+  - clipName: kralenketting3
+    clip: {fileID: 8300000, guid: 86a533ee7b2f3d544bc6d015e13024f2, type: 3}
+    source: {fileID: 0}
+  - clipName: kralenketting4
+    clip: {fileID: 8300000, guid: 1b31da13ac93cab408f463a31e6ff6ae, type: 3}
+    source: {fileID: 0}
+  - clipName: kralenketting5
+    clip: {fileID: 8300000, guid: b0e5a3dadaa3ac4478a0ede87f5ed036, type: 3}
+    source: {fileID: 0}
+  - clipName: kralenketting6
+    clip: {fileID: 8300000, guid: 8d6abe8b6bd0c2e40bdcf33dee27f69d, type: 3}
+    source: {fileID: 0}
+  - clipName: chipszak1
+    clip: {fileID: 8300000, guid: 7e50ff4471627364ba52c4a19da093a1, type: 3}
+    source: {fileID: 0}
+  - clipName: chipszak2
+    clip: {fileID: 8300000, guid: 5e56bd810f0be2344b25dfce1f25f378, type: 3}
+    source: {fileID: 0}
+  - clipName: chipszak3
+    clip: {fileID: 8300000, guid: fd3cba3b2f8504248a0542af134a0f62, type: 3}
+    source: {fileID: 0}
+  - clipName: chipszak4
+    clip: {fileID: 8300000, guid: ab00c2e97f9bb6d448bad8556a3c653d, type: 3}
+    source: {fileID: 0}
+  - clipName: chipszak5
+    clip: {fileID: 8300000, guid: c3f52d9b062dac043a9f74e60002528e, type: 3}
+    source: {fileID: 0}
+  - clipName: chipszak6
+    clip: {fileID: 8300000, guid: 0653ec5c053c3ab4faf400c3dc42c871, type: 3}
+    source: {fileID: 0}
+  - clipName: eisnijder1
+    clip: {fileID: 8300000, guid: 8a3d78ac8788062499d1cf63a3ec5bb4, type: 3}
+    source: {fileID: 0}
+  - clipName: eisnijder2
+    clip: {fileID: 8300000, guid: e5e34305044428e4082ebd0f5005612f, type: 3}
+    source: {fileID: 0}
+  - clipName: eisnijder3
+    clip: {fileID: 8300000, guid: 7f4968b536d4d2a47b455507a434797a, type: 3}
+    source: {fileID: 0}
+  - clipName: eisnijder4
+    clip: {fileID: 8300000, guid: cfb3ea02fcb9c5e46a5eed29f20d848f, type: 3}
+    source: {fileID: 0}
+  - clipName: eisnijder5
+    clip: {fileID: 8300000, guid: 245f246b3d6c31b4194e0f856027dd15, type: 3}
+    source: {fileID: 0}
+  - clipName: eisnijder6
+    clip: {fileID: 8300000, guid: a5939828ccedcf14db51dd8499de133b, type: 3}
+    source: {fileID: 0}
+  - clipName: ijsschep1
+    clip: {fileID: 8300000, guid: 3bc03354ccc499447a69580e26fdb98f, type: 3}
+    source: {fileID: 0}
+  - clipName: ijsschep2
+    clip: {fileID: 8300000, guid: 5768ef1386c366c4fa80dfb4168f991a, type: 3}
+    source: {fileID: 0}
+  - clipName: ijsschep3
+    clip: {fileID: 8300000, guid: f082ded87383ef54382eaae3d3259683, type: 3}
+    source: {fileID: 0}
+  - clipName: ijsschep4
+    clip: {fileID: 8300000, guid: e63ef92c5f6d5fb4b9075b3ee3196c76, type: 3}
+    source: {fileID: 0}
+  - clipName: ijsschep5
+    clip: {fileID: 8300000, guid: 5a2b82add63402a4fad681c56cf6abe4, type: 3}
+    source: {fileID: 0}
+  - clipName: ijsschep6
+    clip: {fileID: 8300000, guid: 81813defcb24f8744b3e8f5cadbb390d, type: 3}
+    source: {fileID: 0}
+  - clipName: klittenband1
+    clip: {fileID: 8300000, guid: b9aad9d3be70d6c4b845595524f4a51b, type: 3}
+    source: {fileID: 0}
+  - clipName: klittenband2
+    clip: {fileID: 8300000, guid: c60de1398b4ac1740b38408d18a8d5bc, type: 3}
+    source: {fileID: 0}
+  - clipName: klittenband3
+    clip: {fileID: 8300000, guid: a1f5d62de08faaa45b0e0dead547db3b, type: 3}
+    source: {fileID: 0}
+  - clipName: klittenband4
+    clip: {fileID: 8300000, guid: 35447ec4ce89aa64d9c7970b784e39b5, type: 3}
+    source: {fileID: 0}
+  - clipName: klittenband5
+    clip: {fileID: 8300000, guid: ba181bef75b66bb4aa770dc3d670eb15, type: 3}
+    source: {fileID: 0}
+  - clipName: klittenband6
+    clip: {fileID: 8300000, guid: 7b7d54ebc574b2049b9adcb962c53f1a, type: 3}
+    source: {fileID: 0}
+  - clipName: legodoos1
+    clip: {fileID: 8300000, guid: cc651ec7ae70ca74993128248133310f, type: 3}
+    source: {fileID: 0}
+  - clipName: legodoos2
+    clip: {fileID: 8300000, guid: 32dead146fcc5a943a3ab7d552d46b8f, type: 3}
+    source: {fileID: 0}
+  - clipName: legodoos3
+    clip: {fileID: 8300000, guid: 9d4c771519b374a45aa77985d5e26ac5, type: 3}
+    source: {fileID: 0}
+  - clipName: legodoos4
+    clip: {fileID: 8300000, guid: 7b1ae58ac76e44e46bc3782995fc5a11, type: 3}
+    source: {fileID: 0}
+  - clipName: legodoos5
+    clip: {fileID: 8300000, guid: a2c0570cde6bd094ea0ad36759eff5b8, type: 3}
+    source: {fileID: 0}
+  - clipName: legodoos6
+    clip: {fileID: 8300000, guid: 2f30fb44c617ae745a79e15a0bdceaae, type: 3}
+    source: {fileID: 0}
+  - clipName: liniaal1
+    clip: {fileID: 8300000, guid: 0bd727944591a0f4b8faac3ff5597828, type: 3}
+    source: {fileID: 0}
+  - clipName: liniaal2
+    clip: {fileID: 8300000, guid: 1ff07614ab87c3d4ea4353dd1a7d4c76, type: 3}
+    source: {fileID: 0}
+  - clipName: liniaal3
+    clip: {fileID: 8300000, guid: f72cb4f192805a34bb6ae517d31b482b, type: 3}
+    source: {fileID: 0}
+  - clipName: liniaal4
+    clip: {fileID: 8300000, guid: 0a1ea3f218a7f2244b89065a96481ba4, type: 3}
+    source: {fileID: 0}
+  - clipName: liniaal5
+    clip: {fileID: 8300000, guid: 4a31b23faaad4d14b83478b24f47872c, type: 3}
+    source: {fileID: 0}
+  - clipName: liniaal6
+    clip: {fileID: 8300000, guid: 821ee8cf4c3b98e4282a3dee599a1525, type: 3}
+    source: {fileID: 0}
+  - clipName: muis1
+    clip: {fileID: 8300000, guid: 983c06eee625e11458e3cd0c91f6ab92, type: 3}
+    source: {fileID: 0}
+  - clipName: muis2
+    clip: {fileID: 8300000, guid: fb875b756eef16d43afea46a2ff47fc6, type: 3}
+    source: {fileID: 0}
+  - clipName: muis3
+    clip: {fileID: 8300000, guid: b70ea4dbfe0b8c0409a49a662af95d7e, type: 3}
+    source: {fileID: 0}
+  - clipName: muis4
+    clip: {fileID: 8300000, guid: 5a5120b41b21d164d9bdc4b66c505bcb, type: 3}
+    source: {fileID: 0}
+  - clipName: muis5
+    clip: {fileID: 8300000, guid: 757cb11340dbe9741b784add1c5c4a4a, type: 3}
+    source: {fileID: 0}
+  - clipName: muis6
+    clip: {fileID: 8300000, guid: 1aba780efa8c1a743bc7ce25847a5f0a, type: 3}
+    source: {fileID: 0}
+  - clipName: ocarina1
+    clip: {fileID: 8300000, guid: 07e09788480072747bc99b0ff2ae0530, type: 3}
+    source: {fileID: 0}
+  - clipName: ocarina2
+    clip: {fileID: 8300000, guid: ac4b96595ba598c4ea739276bf927875, type: 3}
+    source: {fileID: 0}
+  - clipName: ocarina3
+    clip: {fileID: 8300000, guid: 855a1111681053f419206f955ec955ec, type: 3}
+    source: {fileID: 0}
+  - clipName: ocarina4
+    clip: {fileID: 8300000, guid: 9139d0b9afc3db741a4ddd236f50949b, type: 3}
+    source: {fileID: 0}
+  - clipName: ocarina5
+    clip: {fileID: 8300000, guid: 6dfb098022dc5a74a92d00b12f0156e1, type: 3}
+    source: {fileID: 0}
+  - clipName: ocarina6
+    clip: {fileID: 8300000, guid: 31e799f355962634d9c9953837489593, type: 3}
+    source: {fileID: 0}
+  - clipName: pen1
+    clip: {fileID: 8300000, guid: 5535dca15e1ba5545ac962cf160da01b, type: 3}
+    source: {fileID: 0}
+  - clipName: pen2
+    clip: {fileID: 8300000, guid: afb906adf762ba741822deac74410ae2, type: 3}
+    source: {fileID: 0}
+  - clipName: pen3
+    clip: {fileID: 8300000, guid: f2b1b1ca845f4be448fc3525a2167c06, type: 3}
+    source: {fileID: 0}
+  - clipName: pen4
+    clip: {fileID: 8300000, guid: 311cdbd127a75ad4e8b1fa26b7058c30, type: 3}
+    source: {fileID: 0}
+  - clipName: pen5
+    clip: {fileID: 8300000, guid: 7cb365aca5ed6ec428625f53ba50321d, type: 3}
+    source: {fileID: 0}
+  - clipName: pen6
+    clip: {fileID: 8300000, guid: a85d4667956434641a9bec01211b8ba6, type: 3}
+    source: {fileID: 0}
+  - clipName: sleutels1
+    clip: {fileID: 8300000, guid: dfc7ca8b47ed8d64eaaf26c4930c75f7, type: 3}
+    source: {fileID: 0}
+  - clipName: sleutels2
+    clip: {fileID: 8300000, guid: 3ab73dd70cf603145ba058ebc8dd6870, type: 3}
+    source: {fileID: 0}
+  - clipName: sleutels3
+    clip: {fileID: 8300000, guid: b32c54c0c55f3b740b331736607f791c, type: 3}
+    source: {fileID: 0}
+  - clipName: sleutels4
+    clip: {fileID: 8300000, guid: 9a686f97a5cbbeb4bbf456830d3a04de, type: 3}
+    source: {fileID: 0}
+  - clipName: sleutels5
+    clip: {fileID: 8300000, guid: f9c77c10472f8854e90311c93c2e5192, type: 3}
+    source: {fileID: 0}
+  - clipName: sleutels6
+    clip: {fileID: 8300000, guid: 7a3c0090edc2f614b91e0cf155af7b5a, type: 3}
+    source: {fileID: 0}
+  - clipName: zandkoker1
+    clip: {fileID: 8300000, guid: 2352d43d7fa8c7a4c8b5867d7018e4fd, type: 3}
+    source: {fileID: 0}
+  - clipName: zandkoker2
+    clip: {fileID: 8300000, guid: d47604637ab3c6144b265ef30e514af0, type: 3}
+    source: {fileID: 0}
+  - clipName: zandkoker3
+    clip: {fileID: 8300000, guid: e3586d0f17dd0214bbc57f0a1f9105d1, type: 3}
+    source: {fileID: 0}
+  - clipName: zandkoker4
+    clip: {fileID: 8300000, guid: 5cfa8cbe7c46e8848a39e97a5198ce30, type: 3}
+    source: {fileID: 0}
+  - clipName: zandkoker5
+    clip: {fileID: 8300000, guid: ed8ae96e7b9b05140b984cdad5e6583e, type: 3}
+    source: {fileID: 0}
+  - clipName: zandkoker6
+    clip: {fileID: 8300000, guid: 45d236e75923f874299d4bbe23068663, type: 3}
+    source: {fileID: 0}

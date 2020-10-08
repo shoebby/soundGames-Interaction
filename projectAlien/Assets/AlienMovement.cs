@@ -15,6 +15,7 @@ public class AlienMovement : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
     public int hesitation;
+    public float audioTimer = 0f;
 
     private enum AlienBehaviour { Idle, Approaching, Fleeing, Hiding };
     private AlienBehaviour currentState;
@@ -72,6 +73,16 @@ public class AlienMovement : MonoBehaviour
         dist = this.transform.position - player.transform.position;
         hideTimer = currentState == AlienBehaviour.Hiding ? hideTimer : 0;
 
+        audioTimer += Time.deltaTime;
+        if (audioTimer > 5f)
+        {
+            int alienClipNumber = Random.Range(1, 18);
+
+            FindObjectOfType<alienAudioManager>().AlienPlay("alienVoiceOver" + alienClipNumber);
+
+            audioTimer = 0f;
+        }
+
         // Conditions to trigger certain behaviour
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
@@ -120,7 +131,23 @@ public class AlienMovement : MonoBehaviour
     void changeBehaviourTo(AlienBehaviour state)
     {
         Debug.Log("Changing behaviour to " + state);
+
+        switch (state)
+        {
+            case AlienBehaviour.Approaching:
+                currentEmotion--;
+                playAlienVO("alienVoiceOVer", 1.4f);
+                break;
+            case AlienBehaviour.Fleeing:
+                currentEmotion++;
+                playAlienVO("alienVoiceOVer", 0.3f);
+                break;
+            default:
+                break;
+        }
+
         currentState = state;
+        audioTimer = 0;
     }
 
 
@@ -155,6 +182,16 @@ public class AlienMovement : MonoBehaviour
         idleTimer += Time.deltaTime * walkSpeed * 0.1f;
         Vector3 offset = new Vector3(Mathf.Sin(idleTimer), 0, Mathf.Cos(idleTimer)) * dist.magnitude;
         this.transform.position = player.transform.position + offset;
+    }
+
+    void playAlienVO(string clipname, float pitch)
+    {
+        Debug.Log("alien screeeeech");
+
+        int alienClipNumber = Random.Range(1, 18);
+
+        FindObjectOfType<alienAudioManager>().clipPitch = pitch;
+        FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber);
     }
 
     private void OnEnable()

@@ -4,6 +4,7 @@ using UnityEngine;
 public class alienAudioManager : MonoBehaviour
 {
     public AlienSound[] sounds;
+    public float clipPitch;
 
     private void Awake()
     {
@@ -12,7 +13,9 @@ public class alienAudioManager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
 
+            clipPitch = s.source.pitch;
             s.source.pitch = s.pitch;
+
             s.source.spatialBlend = s.spatialBlend;
 
             s.source.minDistance = s.minDistance;
