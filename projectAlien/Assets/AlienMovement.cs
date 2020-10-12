@@ -50,25 +50,13 @@ public class AlienMovement : MonoBehaviour
 
         playerControls.Sounds.klittenBand.performed += _ => ChangeBehaviourTo(AlienBehaviour.Approaching);
 
-        playerControls.Sounds.legoDoos.performed += _ => ChangeBehaviourTo(AlienBehaviour.Approaching);
-
         playerControls.Sounds.liniaal.performed += _ => ChangeBehaviourTo(AlienBehaviour.Approaching);
-
-        playerControls.Sounds.chipsZak.performed += _ => ChangeBehaviourTo(AlienBehaviour.Fleeing);
 
         playerControls.Sounds.ocarina.performed += _ => ChangeBehaviourTo(AlienBehaviour.Fleeing);
 
         playerControls.Sounds.ijsSchep.performed += _ => ChangeBehaviourTo(AlienBehaviour.Fleeing);
 
-        playerControls.Sounds.muis.performed += _ => ChangeBehaviourTo(AlienBehaviour.Hiding);
-
-        playerControls.Sounds.eiSnijder.performed += _ => ChangeBehaviourTo(AlienBehaviour.Hiding);
-
-        playerControls.Sounds.pen.performed += _ => ChangeBehaviourTo(AlienBehaviour.Hiding);
-
         playerControls.Sounds.sleutels.performed += _ => ChangeBehaviourTo(AlienBehaviour.Hiding);
-
-        playerControls.Sounds.zandKoker.performed += _ => ChangeBehaviourTo(AlienBehaviour.Hiding);
     }
 
     // Update is called once per frame
