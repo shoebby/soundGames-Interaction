@@ -171,6 +171,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Menus",
+            "id": "964cb152-9fee-4165-a5d6-03261b07176d",
+            "actions": [
+                {
+                    "name": "pressStart",
+                    "type": "Button",
+                    "id": "0ccf7133-d47d-4033-a269-1c7e3f3b50ad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d3230b6e-dc2e-4073-a779-172c7ece0726",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "pressStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

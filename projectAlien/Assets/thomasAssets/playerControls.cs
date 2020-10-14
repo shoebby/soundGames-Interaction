@@ -184,6 +184,33 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Menus"",
+            ""id"": ""964cb152-9fee-4165-a5d6-03261b07176d"",
+            ""actions"": [
+                {
+                    ""name"": ""pressStart"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ccf7133-d47d-4033-a269-1c7e3f3b50ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d3230b6e-dc2e-4073-a779-172c7ece0726"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""pressStart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -199,6 +226,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Alien
         m_Alien = asset.FindActionMap("Alien", throwIfNotFound: true);
         m_Alien_randomSound = m_Alien.FindAction("randomSound", throwIfNotFound: true);
+        // Menus
+        m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
+        m_Menus_pressStart = m_Menus.FindAction("pressStart", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -350,6 +380,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public AlienActions @Alien => new AlienActions(this);
+
+    // Menus
+    private readonly InputActionMap m_Menus;
+    private IMenusActions m_MenusActionsCallbackInterface;
+    private readonly InputAction m_Menus_pressStart;
+    public struct MenusActions
+    {
+        private @PlayerControls m_Wrapper;
+        public MenusActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @pressStart => m_Wrapper.m_Menus_pressStart;
+        public InputActionMap Get() { return m_Wrapper.m_Menus; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenusActions set) { return set.Get(); }
+        public void SetCallbacks(IMenusActions instance)
+        {
+            if (m_Wrapper.m_MenusActionsCallbackInterface != null)
+            {
+                @pressStart.started -= m_Wrapper.m_MenusActionsCallbackInterface.OnPressStart;
+                @pressStart.performed -= m_Wrapper.m_MenusActionsCallbackInterface.OnPressStart;
+                @pressStart.canceled -= m_Wrapper.m_MenusActionsCallbackInterface.OnPressStart;
+            }
+            m_Wrapper.m_MenusActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @pressStart.started += instance.OnPressStart;
+                @pressStart.performed += instance.OnPressStart;
+                @pressStart.canceled += instance.OnPressStart;
+            }
+        }
+    }
+    public MenusActions @Menus => new MenusActions(this);
     public interface ISoundsActions
     {
         void OnKralenKetting(InputAction.CallbackContext context);
@@ -362,5 +425,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IAlienActions
     {
         void OnRandomSound(InputAction.CallbackContext context);
+    }
+    public interface IMenusActions
+    {
+        void OnPressStart(InputAction.CallbackContext context);
     }
 }

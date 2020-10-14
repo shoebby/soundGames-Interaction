@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Security;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class AlienMovement : MonoBehaviour
@@ -35,6 +36,14 @@ public class AlienMovement : MonoBehaviour
     public int lastButton = 0;
     private bool isReadyToScream = false;
 
+    public AudioClip scenario1Intro;
+    public AudioClip scenario1Outro;
+    public AudioClip scenario2Intro;
+    public AudioClip scenario2Outro;
+    public AudioClip scenario2Dad;
+    public AudioSource narrativeAudioSource;
+
+    private int scenarioStep = 1;
 
     private void Awake()
     {
@@ -42,6 +51,8 @@ public class AlienMovement : MonoBehaviour
 
         screamPitch = 1f;
         screamPitchModifier = 0.3f;
+
+        narrativeAudioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -60,6 +71,9 @@ public class AlienMovement : MonoBehaviour
 
         currentDistance = maxDistance;
 
+        //scenario 1 intro
+        scenarioEvent(scenario1Intro, 10);
+
         currentState = AlienBehaviour.Idle;
 
         playerControls.Sounds.kralenKetting.performed += _ => InputControl(AlienBehaviour.Approaching, 1);
@@ -77,12 +91,39 @@ public class AlienMovement : MonoBehaviour
 
     void Update()
     {
-        if (currentDistance <= 0)
+        Debug.Log(currentDistance);
+        //scenario 1 victory
+        if (currentDistance <= 1 && scenarioStep == 1)
         {
-            // you are a winner! :D
+            //scenarioEvent(scenario1Outro, 2);
+            scenarioStep = 2;
         }
-        else if (currentDistance > maxDistance)
+
+        //scenario 2 intro
+        if (currentDistance <= 2 && scenarioStep == 2)
+        {
+            scenarioEvent(scenario2Intro, 1);
+            scenarioEvent(scenario2Dad, 1);
+
+            scenarioStep = 3;
+        }
+
+        //scenario 2 victory
+        if (currentDistance >= 10 && scenarioStep == 3 && currentState == AlienBehaviour.Hiding)
+        {
+            scenarioEvent(scenario2Outro, 10);
+            scenarioStep = 4;
+        }
+
+        if (scenarioStep == 4 && currentState == AlienBehaviour.Idle)
+        {
+            SceneManager.LoadScene("exitScene");
+        }
+
+        if (currentDistance > maxDistance)
+        {
             currentDistance = maxDistance;
+        }
 
         dist = this.transform.position - player.transform.position;
         hideTimer = currentState == AlienBehaviour.Hiding ? hideTimer : 0;
@@ -215,5 +256,12 @@ public class AlienMovement : MonoBehaviour
         int alienClipNumber = Random.Range(1, 18);
 
         FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber, voicePitch);
+    }
+
+    void scenarioEvent(AudioClip clip, int newDistance)
+    {
+        narrativeAudioSource.PlayOneShot(clip);
+
+        currentDistance = newDistance;
     }
 }
