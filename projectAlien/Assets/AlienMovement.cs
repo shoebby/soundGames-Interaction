@@ -28,8 +28,10 @@ public class AlienMovement : MonoBehaviour
     private float hideTimer = 0;
     private float idleTimer = 0;
     private float inputDelayTimer = 0;
-    public float inputThreshold;
+    public float inputDelayThreshold;
+    private int lastButton = -1;
     private bool isReadyToScream = false;
+
 
     private void Awake()
     {
@@ -55,17 +57,17 @@ public class AlienMovement : MonoBehaviour
         currentDistance = maxDistance;
         currentState = AlienBehaviour.Idle;
 
-        playerControls.Sounds.kralenKetting.performed += _ => ChangeBehaviourTo(AlienBehaviour.Approaching);
+        playerControls.Sounds.kralenKetting.performed += _ => InputControl(AlienBehaviour.Approaching, 1);
 
-        playerControls.Sounds.klittenBand.performed += _ => ChangeBehaviourTo(AlienBehaviour.Approaching);
+        playerControls.Sounds.klittenBand.performed += _ => InputControl(AlienBehaviour.Approaching, 2);
 
-        playerControls.Sounds.liniaal.performed += _ => ChangeBehaviourTo(AlienBehaviour.Approaching);
+        playerControls.Sounds.liniaal.performed += _ => InputControl(AlienBehaviour.Approaching, 3);
 
-        playerControls.Sounds.ocarina.performed += _ => ChangeBehaviourTo(AlienBehaviour.Fleeing);
+        playerControls.Sounds.ocarina.performed += _ => InputControl(AlienBehaviour.Fleeing, 4);
 
-        playerControls.Sounds.ijsSchep.performed += _ => ChangeBehaviourTo(AlienBehaviour.Fleeing);
+        playerControls.Sounds.ijsSchep.performed += _ => InputControl(AlienBehaviour.Fleeing, 5);
 
-        playerControls.Sounds.sleutels.performed += _ => ChangeBehaviourTo(AlienBehaviour.Hiding);
+        playerControls.Sounds.sleutels.performed += _ => InputControl(AlienBehaviour.Hiding, 6);
     }
 
     void Update()
@@ -112,10 +114,14 @@ public class AlienMovement : MonoBehaviour
         }
     }
 
-    void InputControl(AlienBehaviour state)
+    void InputControl(AlienBehaviour state, int button)
     {
+        if (button == lastButton)
+            return;
+
+        lastButton = button;
         // Ignore input for a certain amount of time (below threshold)
-        if (inputDelayTimer < inputThreshold)
+        if (inputDelayTimer < inputDelayThreshold)
             return;
         ChangeBehaviourTo(state);
     }
