@@ -17,12 +17,16 @@ public class AlienMovement : MonoBehaviour
     public int hesitation;
     private float audioTimer = 0f;
     public float audioLoop;
+    public float screamDelay;
 
     private enum AlienBehaviour { Idle, Approaching, Fleeing, Hiding };
     private AlienBehaviour currentState;
     private Vector3 dist;
     private float hideTimer = 0;
     private float idleTimer = 0;
+    private float inputDelayTimer = 0;
+    public float inputThreshold;
+    private bool isReadyToScream = false;
 
     private void Awake()
     {
@@ -72,14 +76,17 @@ public class AlienMovement : MonoBehaviour
         dist = this.transform.position - player.transform.position;
         hideTimer = currentState == AlienBehaviour.Hiding ? hideTimer : 0;
 
+        inputDelayTimer += Time.deltaTime;
         audioTimer += Time.deltaTime;
-        if (audioTimer > audioLoop)
+        if (audioTimer > audioLoop + screamDelay)
+            isReadyToScream = true;
+
+        // Call this part of the Update() loop if the alien needs to cry
+        if (isReadyToScream)
         {
-            audioTimer = 0f;
-
             PlayAlienVO("alienVoiceOver");
-
-           
+            audioTimer = 0f;
+            isReadyToScream = false;
         }
 
         // Movement depends on the state of the alien
@@ -99,6 +106,14 @@ public class AlienMovement : MonoBehaviour
                 UpdateIdle();
                 break;
         }
+    }
+
+    void InputControl(AlienBehaviour state)
+    {
+        // Ignore input for a certain amount of time (below threshold)
+        if (inputDelayTimer < inputThreshold)
+            return;
+        ChangeBehaviourTo(state);
     }
 
     void UpdateApproaching()
@@ -121,17 +136,17 @@ public class AlienMovement : MonoBehaviour
         Debug.Log("Changing behaviour to " + state);
 
         currentState = state;
-        audioTimer = 0;
+        audioTimer = 0f;
 
         switch (state)
         {
             case AlienBehaviour.Approaching:
                 currentDistance--;
-                PlayAlienVO("alienVoiceOver");
+                isReadyToScream = true;
                 break;
             case AlienBehaviour.Fleeing:
                 currentDistance++;
-                PlayAlienVO("alienVoiceOver");
+                isReadyToScream = true;
                 break;
             default:
                 break;
