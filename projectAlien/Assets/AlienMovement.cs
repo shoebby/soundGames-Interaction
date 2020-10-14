@@ -22,14 +22,17 @@ public class AlienMovement : MonoBehaviour
     public float screamPitch;
     public float screamPitchModifier;
 
+    public float feedbackDelayTimer = 0f;
+    public float feedbackDelayThreshold = 2f;
+
     private enum AlienBehaviour { Idle, Approaching, Fleeing, Hiding };
     private AlienBehaviour currentState;
     private Vector3 dist;
     private float hideTimer = 0;
     private float idleTimer = 0;
-    private float inputDelayTimer = 0;
+    public float inputDelayTimer = 0;
     public float inputIgnoreThreshold;
-    private int lastButton = -1;
+    public int lastButton = 0;
     private bool isReadyToScream = false;
 
 
@@ -39,7 +42,7 @@ public class AlienMovement : MonoBehaviour
 
         screamPitch = 1f;
         screamPitchModifier = 0.3f;
-}
+    }
 
     private void OnEnable()
     {
@@ -54,7 +57,9 @@ public class AlienMovement : MonoBehaviour
     void Start()
     {
         Debug.Log("Start playing");
+
         currentDistance = maxDistance;
+
         currentState = AlienBehaviour.Idle;
 
         playerControls.Sounds.kralenKetting.performed += _ => InputControl(AlienBehaviour.Approaching, 1);
@@ -90,9 +95,15 @@ public class AlienMovement : MonoBehaviour
         // Call this part of the Update() loop if the alien needs to cry
         if (isReadyToScream)
         {
-            PlayAlienVO("alienVoiceOver", screamPitch);
-            audioTimer = 0f;
-            isReadyToScream = false;
+            feedbackDelayTimer += Time.deltaTime;
+
+            if (feedbackDelayTimer >= feedbackDelayThreshold)
+            {
+                PlayAlienVO("alienVoiceOver", screamPitch);
+                audioTimer = 0f;
+                feedbackDelayTimer = 0f;
+                isReadyToScream = false;
+            }
         }
 
         // Movement depends on the state of the alien
@@ -119,10 +130,11 @@ public class AlienMovement : MonoBehaviour
         if (button == lastButton)
             return;
 
-        lastButton = button;
         // Ignore input for a certain amount of time (below threshold)
         if (inputDelayTimer < inputIgnoreThreshold)
             return;
+        lastButton = button;
+        inputDelayTimer = 0;
         ChangeBehaviourTo(state);
     }
 
@@ -204,5 +216,4 @@ public class AlienMovement : MonoBehaviour
 
         FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber, voicePitch);
     }
-
 }

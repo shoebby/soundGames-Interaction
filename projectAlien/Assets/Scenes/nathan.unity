@@ -272,7 +272,12 @@ MonoBehaviour:
   audioLoop: 5
   screamDelay: 0
   screamPitch: 0
-  inputThreshold: 0
+  screamPitchModifier: 0
+  feedbackDelayTimer: 0
+  feedbackDelayThreshold: 0.75
+  inputDelayTimer: 0
+  inputIgnoreThreshold: 1
+  lastButton: 0
 --- !u!4 &464562027 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3187060679427561455, guid: 92bc55c7579e5d4459d15f4605fa6b27, type: 3}
