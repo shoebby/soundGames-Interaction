@@ -220,4 +220,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   voiceOver: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: a0e95aa2497c2234a919da4457f1f8eb, type: 3}

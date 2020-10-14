@@ -220,5 +220,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   voiceOver: {fileID: 0}
-  voiceOverClip: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 4f6f8578d8c9f374b90118184e31aa5e, type: 3}
   sceneName: nathan
