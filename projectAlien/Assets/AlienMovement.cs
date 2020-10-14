@@ -153,11 +153,13 @@ public class AlienMovement : MonoBehaviour
             case AlienBehaviour.Approaching:
                 currentDistance--;
                 screamPitch += screamPitchModifier;
+                audioTimer = audioLoop;
                 isReadyToScream = true;
                 break;
             case AlienBehaviour.Fleeing:
                 currentDistance++;
                 screamPitch -= screamPitchModifier;
+                audioTimer = audioLoop;
                 isReadyToScream = true;
                 break;
             default:
