@@ -21,9 +21,10 @@ public class alienAudioManager : MonoBehaviour
         }
     }
 
-    public void AlienPlay(string clipName)
+    public void AlienPlay(string clipName, float clipPitch)
     {
         AlienSound s = Array.Find(sounds, sound => sound.clipName == clipName);
+        s.source.pitch = clipPitch;
         s.source.Play();
         Debug.Log(clipName);
     }

@@ -25,10 +25,6 @@ public class rotation : MonoBehaviour
     void playAlienVO(string clipname)
     {
         Debug.Log("alien screeeeech");
-        
-        int alienClipNumber = Random.Range(1, 18);
-
-        FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber);
     }
 
     private void OnEnable()

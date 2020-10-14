@@ -19,6 +19,9 @@ public class AlienMovement : MonoBehaviour
     public float audioLoop;
     public float screamDelay;
 
+    public float screamPitch;
+    public float screamPitchModifier;
+
     private enum AlienBehaviour { Idle, Approaching, Fleeing, Hiding };
     private AlienBehaviour currentState;
     private Vector3 dist;
@@ -31,7 +34,10 @@ public class AlienMovement : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerControls();
-    }
+
+        screamPitch = 1f;
+        screamPitchModifier = 0.3f;
+}
 
     private void OnEnable()
     {
@@ -43,7 +49,6 @@ public class AlienMovement : MonoBehaviour
         playerControls.Disable();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Start playing");
@@ -63,7 +68,6 @@ public class AlienMovement : MonoBehaviour
         playerControls.Sounds.sleutels.performed += _ => ChangeBehaviourTo(AlienBehaviour.Hiding);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (currentDistance <= 0)
@@ -84,7 +88,7 @@ public class AlienMovement : MonoBehaviour
         // Call this part of the Update() loop if the alien needs to cry
         if (isReadyToScream)
         {
-            PlayAlienVO("alienVoiceOver");
+            PlayAlienVO("alienVoiceOver", screamPitch);
             audioTimer = 0f;
             isReadyToScream = false;
         }
@@ -142,10 +146,12 @@ public class AlienMovement : MonoBehaviour
         {
             case AlienBehaviour.Approaching:
                 currentDistance--;
+                screamPitch += screamPitchModifier;
                 isReadyToScream = true;
                 break;
             case AlienBehaviour.Fleeing:
                 currentDistance++;
+                screamPitch -= screamPitchModifier;
                 isReadyToScream = true;
                 break;
             default:
@@ -182,13 +188,13 @@ public class AlienMovement : MonoBehaviour
         this.transform.position = player.transform.position + offset;
     }
 
-    void PlayAlienVO(string clipname)
+    void PlayAlienVO(string clipname, float voicePitch)
     {
         Debug.Log("alien screeeeech");
 
         int alienClipNumber = Random.Range(1, 18);
 
-        FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber);
+        FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber, voicePitch);
     }
 
 }

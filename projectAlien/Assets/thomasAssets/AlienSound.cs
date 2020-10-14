@@ -15,6 +15,8 @@ public class AlienSound
     public float minDistance = 5f;
     public float maxDistance = 50f;
 
+    public AudioRolloffMode RollOffMode;
+
     [HideInInspector]
     public AudioSource source;
 }
