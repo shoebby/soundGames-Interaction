@@ -28,7 +28,7 @@ public class AlienMovement : MonoBehaviour
     private float hideTimer = 0;
     private float idleTimer = 0;
     private float inputDelayTimer = 0;
-    public float inputDelayThreshold;
+    public float inputIgnoreThreshold;
     private int lastButton = -1;
     private bool isReadyToScream = false;
 
@@ -121,7 +121,7 @@ public class AlienMovement : MonoBehaviour
 
         lastButton = button;
         // Ignore input for a certain amount of time (below threshold)
-        if (inputDelayTimer < inputDelayThreshold)
+        if (inputDelayTimer < inputIgnoreThreshold)
             return;
         ChangeBehaviourTo(state);
     }
