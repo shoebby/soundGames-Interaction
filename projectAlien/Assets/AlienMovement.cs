@@ -36,12 +36,15 @@ public class AlienMovement : MonoBehaviour
     public int lastButton = 0;
     private bool isReadyToScream = false;
 
+    public AudioClip alienWalkClip;
+    public AudioClip alienRunClip;
     public AudioClip scenario1Intro;
     public AudioClip scenario1Outro;
     public AudioClip scenario2Intro;
     public AudioClip scenario2Outro;
     public AudioClip scenario2Dad;
-    public AudioSource narrativeAudioSource;
+    private AudioSource narrativeAudioSource;
+    private AudioSource movementAudioSource;
 
     private int scenarioStep = 1;
 
@@ -53,6 +56,7 @@ public class AlienMovement : MonoBehaviour
         screamPitchModifier = 0.3f;
 
         narrativeAudioSource = gameObject.AddComponent<AudioSource>();
+        movementAudioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -72,58 +76,22 @@ public class AlienMovement : MonoBehaviour
         currentDistance = maxDistance;
 
         //scenario 1 intro
-        scenarioEvent(scenario1Intro, 10);
+        PlayScenarioEvent(scenario1Intro, 10);
 
+        // Player input becomes alien behaviour state
         currentState = AlienBehaviour.Idle;
-
         playerControls.Sounds.kralenKetting.performed += _ => InputControl(AlienBehaviour.Approaching, 1);
-
         playerControls.Sounds.klittenBand.performed += _ => InputControl(AlienBehaviour.Approaching, 2);
-
         playerControls.Sounds.liniaal.performed += _ => InputControl(AlienBehaviour.Approaching, 3);
-
         playerControls.Sounds.ocarina.performed += _ => InputControl(AlienBehaviour.Fleeing, 4);
-
         playerControls.Sounds.ijsSchep.performed += _ => InputControl(AlienBehaviour.Fleeing, 5);
-
         playerControls.Sounds.sleutels.performed += _ => InputControl(AlienBehaviour.Hiding, 6);
     }
 
     void Update()
     {
         Debug.Log(currentDistance);
-        //scenario 1 victory
-        if (currentDistance <= 1 && scenarioStep == 1)
-        {
-            //scenarioEvent(scenario1Outro, 2);
-            scenarioStep = 2;
-        }
-
-        //scenario 2 intro
-        if (currentDistance <= 2 && scenarioStep == 2)
-        {
-            scenarioEvent(scenario2Intro, 1);
-            scenarioEvent(scenario2Dad, 1);
-
-            scenarioStep = 3;
-        }
-
-        //scenario 2 victory
-        if (currentDistance >= 10 && scenarioStep == 3 && currentState == AlienBehaviour.Hiding)
-        {
-            scenarioEvent(scenario2Outro, 10);
-            scenarioStep = 4;
-        }
-
-        if (scenarioStep == 4 && currentState == AlienBehaviour.Idle)
-        {
-            SceneManager.LoadScene("exitScene");
-        }
-
-        if (currentDistance > maxDistance)
-        {
-            currentDistance = maxDistance;
-        }
+        UpdateScenario();
 
         dist = this.transform.position - player.transform.position;
         hideTimer = currentState == AlienBehaviour.Hiding ? hideTimer : 0;
@@ -166,34 +134,12 @@ public class AlienMovement : MonoBehaviour
         }
     }
 
-    void InputControl(AlienBehaviour state, int button)
-    {
-        if (button == lastButton)
-            return;
+    /*
+    Above this line: mandatory methods that are inherited from Unity
+    Below this line: all methods we created ourselves to implement gameplay, in alphabetical order by method name
+    */
 
-        // Ignore input for a certain amount of time (below threshold)
-        if (inputDelayTimer < inputIgnoreThreshold)
-            return;
-        lastButton = button;
-        inputDelayTimer = 0;
-        ChangeBehaviourTo(state);
-    }
-
-    void UpdateApproaching()
-    {
-        //Debug.Log("Approaching");
-
-        // We need the alien to move towards the player
-        if ((dist + dist.normalized).magnitude > dist.magnitude)
-            dist = -dist;
-
-        if (dist.magnitude > currentDistance)
-            this.transform.position += dist.normalized * Time.deltaTime * walkSpeed;
-        else
-            ChangeBehaviourTo(AlienBehaviour.Idle);
-
-    }
-
+    // ChangeBehaviourTo() enforces all game rules that apply when the alien changes behaviour
     void ChangeBehaviourTo(AlienBehaviour state)
     {
         Debug.Log("Changing behaviour to " + state);
@@ -220,6 +166,63 @@ public class AlienMovement : MonoBehaviour
         }
     }
 
+    // InputControl() handles player input; decides whether to accept or ignore input to avoid button mashing
+    void InputControl(AlienBehaviour state, int button)
+    {
+        if (button == lastButton)
+            return;
+
+        // Ignore input for a certain amount of time (below threshold)
+        if (inputDelayTimer < inputIgnoreThreshold)
+            return;
+        lastButton = button;
+        inputDelayTimer = 0;
+        ChangeBehaviourTo(state);
+    }
+
+    // PlayAlienVO() handles alien talk (sounds with its mouth, basically)
+    void PlayAlienVO(string clipname, float voicePitch)
+    {
+        Debug.Log("alien screeeeech");
+        int alienClipNumber = Random.Range(1, 18);
+        FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber, voicePitch);
+    }
+
+    // PlayAlienRunning() plays the running sound of alien feet
+    void PlayAlienRunning()
+    {
+        movementAudioSource.PlayOneShot(alienRunClip);
+    }
+
+    // PlayAlienWalking() plays the walking sound of alien feet
+    void PlayAlienWalking()
+    {
+        movementAudioSource.PlayOneShot(alienWalkClip);
+    }
+
+    // PlayScenarioEvent() handles audio play for narrative events
+    void PlayScenarioEvent(AudioClip clip, int newDistance)
+    {
+        narrativeAudioSource.PlayOneShot(clip);
+        currentDistance = newDistance;
+    }
+
+    // UpdateApproaching() handles frame-by-frame gameplay behaviour when the alien is in Approaching behaviour state.
+    void UpdateApproaching()
+    {
+        //Debug.Log("Approaching");
+
+        // We need the alien to move towards the player
+        if ((dist + dist.normalized).magnitude > dist.magnitude)
+            dist = -dist;
+
+        if (dist.magnitude > currentDistance)
+            this.transform.position += dist.normalized * Time.deltaTime * walkSpeed;
+        else
+            ChangeBehaviourTo(AlienBehaviour.Idle);
+    }
+
+    // UpdateFleeing() handles frame-by-frame gameplay behaviour when the alien is in Fleeing behaviour state.
     void UpdateFleeing()
     {
         //Debug.Log("Fleeing");
@@ -234,6 +237,7 @@ public class AlienMovement : MonoBehaviour
             ChangeBehaviourTo(AlienBehaviour.Idle);
     }
 
+    // UpdateHiding() handles frame-by-frame gameplay behaviour when the alien is in Hiding behaviour state.
     void UpdateHiding()
     {
         //Debug.Log("Hiding");
@@ -242,6 +246,7 @@ public class AlienMovement : MonoBehaviour
             ChangeBehaviourTo(AlienBehaviour.Idle);
     }
 
+    // UpdateApproaching() handles frame-by-frame gameplay behaviour when the alien is in Idle state, waiting for new player input.
     void UpdateIdle()
     {
         idleTimer += Time.deltaTime * walkSpeed * 0.1f;
@@ -249,19 +254,37 @@ public class AlienMovement : MonoBehaviour
         this.transform.position = player.transform.position + offset;
     }
 
-    void PlayAlienVO(string clipname, float voicePitch)
+    // UpdateScenario() checks frame-by-frame whether a new game state (scenario) needs to be started.
+    void UpdateScenario()
     {
-        Debug.Log("alien screeeeech");
+        //scenario 1 victory
+        if (currentDistance <= 1 && scenarioStep == 1)
+        {
+            //scenarioEvent(scenario1Outro, 2);
+            scenarioStep = 2;
+        }
 
-        int alienClipNumber = Random.Range(1, 18);
+        //scenario 2 intro
+        if (currentDistance <= 2 && scenarioStep == 2)
+        {
+            PlayScenarioEvent(scenario2Intro, 1);
+            PlayScenarioEvent(scenario2Dad, 1);
 
-        FindObjectOfType<alienAudioManager>().AlienPlay(clipname + alienClipNumber, voicePitch);
+            scenarioStep = 3;
+        }
+
+        //scenario 2 victory
+        if (currentDistance >= 10 && scenarioStep == 3 && currentState == AlienBehaviour.Hiding)
+        {
+            PlayScenarioEvent(scenario2Outro, 10);
+            scenarioStep = 4;
+        }
+
+        if (scenarioStep == 4 && currentState == AlienBehaviour.Idle)
+            SceneManager.LoadScene("exitScene");
+
+        if (currentDistance > maxDistance)
+            currentDistance = maxDistance;
     }
 
-    void scenarioEvent(AudioClip clip, int newDistance)
-    {
-        narrativeAudioSource.PlayOneShot(clip);
-
-        currentDistance = newDistance;
-    }
 }
