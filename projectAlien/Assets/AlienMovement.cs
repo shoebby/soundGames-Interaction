@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net.Security;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class AlienMovement : MonoBehaviour
 {
@@ -38,6 +34,8 @@ public class AlienMovement : MonoBehaviour
 
     public AudioClip alienWalkClip;
     public AudioClip alienRunClip;
+    public AudioClip alienMovementClip;
+
     public AudioClip scenario1Intro;
     public AudioClip scenario1Outro;
     public AudioClip scenario2Intro;
@@ -56,7 +54,12 @@ public class AlienMovement : MonoBehaviour
         screamPitchModifier = 0.3f;
 
         narrativeAudioSource = gameObject.AddComponent<AudioSource>();
+
         movementAudioSource = gameObject.AddComponent<AudioSource>();
+        movementAudioSource.spatialBlend = 1f;
+        movementAudioSource.rolloffMode = AudioRolloffMode.Linear;
+        movementAudioSource.minDistance = 1f;
+        movementAudioSource.maxDistance = 11f;
     }
 
     private void OnEnable()
@@ -109,6 +112,12 @@ public class AlienMovement : MonoBehaviour
             if (feedbackDelayTimer >= feedbackDelayThreshold)
             {
                 PlayAlienVO("alienVoiceOver", screamPitch);
+
+                if (currentState != AlienBehaviour.Idle /*&& currentState != AlienBehaviour.Hiding*/)
+                {
+                    PlayAlienMovement(alienMovementClip);
+                }
+
                 audioTimer = 0f;
                 feedbackDelayTimer = 0f;
                 isReadyToScream = false;
@@ -153,12 +162,14 @@ public class AlienMovement : MonoBehaviour
                 currentDistance--;
                 screamPitch += screamPitchModifier;
                 audioTimer = audioLoop;
+                alienMovementClip = alienWalkClip;
                 isReadyToScream = true;
                 break;
             case AlienBehaviour.Fleeing:
                 currentDistance++;
                 screamPitch -= screamPitchModifier;
                 audioTimer = audioLoop;
+                alienMovementClip = alienRunClip;
                 isReadyToScream = true;
                 break;
             default:
@@ -189,15 +200,9 @@ public class AlienMovement : MonoBehaviour
     }
 
     // PlayAlienRunning() plays the running sound of alien feet
-    void PlayAlienRunning()
+    void PlayAlienMovement(AudioClip clip)
     {
-        movementAudioSource.PlayOneShot(alienRunClip);
-    }
-
-    // PlayAlienWalking() plays the walking sound of alien feet
-    void PlayAlienWalking()
-    {
-        movementAudioSource.PlayOneShot(alienWalkClip);
+        movementAudioSource.PlayOneShot(clip);
     }
 
     // PlayScenarioEvent() handles audio play for narrative events
@@ -252,6 +257,11 @@ public class AlienMovement : MonoBehaviour
         idleTimer += Time.deltaTime * walkSpeed * 0.1f;
         Vector3 offset = new Vector3(Mathf.Sin(idleTimer), 0, Mathf.Cos(idleTimer)) * dist.magnitude;
         this.transform.position = player.transform.position + offset;
+
+        if (movementAudioSource.isPlaying == false)
+        {
+            PlayAlienMovement(alienWalkClip);
+        }
     }
 
     // UpdateScenario() checks frame-by-frame whether a new game state (scenario) needs to be started.
@@ -286,5 +296,4 @@ public class AlienMovement : MonoBehaviour
         if (currentDistance > maxDistance)
             currentDistance = maxDistance;
     }
-
 }

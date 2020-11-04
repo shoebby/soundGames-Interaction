@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 424569433}
-  - component: {fileID: 424569432}
   - component: {fileID: 424569434}
   m_Layer: 0
   m_Name: Alien Audio Source
@@ -141,102 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!82 &424569432
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424569431}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ca570bdc6485c2241818b122c1f19c0d, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 11
-  Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!4 &424569433
 Transform:
   m_ObjectHideFlags: 0
@@ -278,12 +181,14 @@ MonoBehaviour:
   inputDelayTimer: 0
   inputIgnoreThreshold: 1
   lastButton: 0
+  alienWalkClip: {fileID: 8300000, guid: 31a088edefcfaf44aa1ec983628a4d5f, type: 3}
+  alienRunClip: {fileID: 8300000, guid: 5882ca0051bc1c849bcca5b91976adaa, type: 3}
+  alienMovementClip: {fileID: 0}
   scenario1Intro: {fileID: 8300000, guid: 2265ae6dd29329b4ca5e3aacf0e95df4, type: 3}
   scenario1Outro: {fileID: 8300000, guid: 20053ecab0f9e6a4786ec7b6747e938e, type: 3}
   scenario2Intro: {fileID: 8300000, guid: e5eb4a80fb4fe874f8b446dd9f43eee8, type: 3}
   scenario2Outro: {fileID: 8300000, guid: e4a3959d9d9b72a4b8dfe375c1247bda, type: 3}
   scenario2Dad: {fileID: 8300000, guid: 8cd28befa218d3f4eae4b3069df0174f, type: 3}
-  narrativeAudioSource: {fileID: 0}
 --- !u!4 &464562027 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3187060679427561455, guid: 92bc55c7579e5d4459d15f4605fa6b27, type: 3}
